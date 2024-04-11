@@ -1,0 +1,11 @@
+Model Information:
+* title:	Snow House
+* source:	https://sketchfab.com/3d-models/snow-house-2e9f8449db05493c984ad95f3b950fa0
+* author:	kayacutt (https://sketchfab.com/kayacutt)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Snow House" (https://sketchfab.com/3d-models/snow-house-2e9f8449db05493c984ad95f3b950fa0) by kayacutt (https://sketchfab.com/kayacutt) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
