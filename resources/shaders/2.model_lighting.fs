@@ -44,9 +44,11 @@ uniform vec3 viewPosition;
    vec3 lightDir = normalize(-light.direction);
     // diffuse shading
     float diff = max(dot(normal, lightDir), 0.0);
-    // specular shading advanced
+
  //  vec3 reflectDir = reflect(-lightDir, normal);
  //    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+
+    // specular shading advanced
      vec3 reflectDir = reflect(-lightDir, normal);
          float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
          vec3 halfwayDir = normalize(lightDir + viewDir);

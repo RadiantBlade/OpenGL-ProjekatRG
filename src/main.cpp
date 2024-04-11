@@ -250,6 +250,9 @@ int main() {
     Model ourModel("resources/objects/acabin/scene.gltf");
     ourModel.SetShaderTextureNamePrefix("material.");
 
+    Model snowman("resources/objects/snowman/scene.gltf");
+    snowman.SetShaderTextureNamePrefix("material.");
+
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
     pointLight.ambient = glm::vec3(0.31, 0.31, 0.31);
@@ -286,7 +289,7 @@ int main() {
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
-        pointLight.position = glm::vec3(4.0f /** cos(currentFrame)*/, 4.0f, 4.0f /* * sin(currentFrame)*/);
+        pointLight.position = glm::vec3(4.0f * cos(currentFrame), 4.0f, 4.0f * sin(currentFrame));
 
         ourShader.setVec3("pointLight.position", pointLight.position);
         ourShader.setVec3("pointLight.ambient", pointLight.ambient);
@@ -312,38 +315,39 @@ int main() {
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
+
+
         // render the loaded model
-        /* glm::mat4 model = glm::mat4(1.0f);
-         model = glm::translate(model,
-                                programState->backpackPosition); // translate it down so it's at the center of the scene
-         model = glm::scale(model, glm::vec3(programState->backpackScale));    // it's a bit too big for our scene, so scale it down
-         ourShader.setMat4("model", model);
-         ourModel.Draw(ourShader); */
+
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
         model= glm::rotate(model, glm::radians(90.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
-        model= glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        model= glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        model= glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        model= glm::rotate(model, glm::radians(2.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
-/*
-        glm::mat4 palm= glm::mat4(1.0f);
-        palm = glm::translate(palm,
-                              glm::vec3 (-30,0,22)); // translate it down so it's at the center of the scene
-        palm = glm::scale(palm, glm::vec3(10.6f));
-        palm = glm::rotate(palm, glm::radians(90.0f), glm::vec3(-0.1f, 0.0f, 0.0f));
-        // it's a bit too big for our scene, so scale it down
-        ourShader.setMat4("model", palm);
-        ourModel.Draw(ourShader); */
-        // draw skybox as last
-        glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+
+        glm::mat4 snesko= glm::mat4(1.0f);
+        snesko = glm::translate(snesko,glm::vec3 (20,-13,67));
+
+        snesko = glm::scale(snesko, glm::vec3(1.8f));
+        snesko= glm::rotate(snesko, glm::radians(160.0f), glm::vec3(-1.0f, 0.0f, 0.0f));
+        snesko= glm::rotate(snesko, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        snesko= glm::rotate(snesko, glm::radians(140.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        snesko= glm::rotate(snesko, glm::radians(10.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        ourShader.setMat4("model", snesko);
+        snowman.Draw(ourShader);
+
 
 
         //Face culling
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
+
+        // draw skybox as last
+        glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 
 
         skyboxShader.use();
