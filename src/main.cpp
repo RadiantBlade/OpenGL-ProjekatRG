@@ -226,7 +226,14 @@ int main() {
                     FileSystem::getPath("resources/textures/skybox/negy.jpg"),
                     FileSystem::getPath("resources/textures/skybox/posz.jpg"),
                     FileSystem::getPath("resources/textures/skybox/negz.jpg"),
-
+/*
+                    FileSystem::getPath("resources/textures/skybox/haze_rt.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/haze_lf.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/haze_up.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/haze_dn.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/haze_bk.jpg"),
+                    FileSystem::getPath("resources/textures/skybox/haze_ft.jpg"),
+*/
 
             };
     unsigned int cubemapTexture = loadCubemap(faces);
@@ -280,7 +287,7 @@ int main() {
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         pointLight.position = glm::vec3(4.0f /** cos(currentFrame)*/, 4.0f, 4.0f /* * sin(currentFrame)*/);
-        ourShader.setVec3("pointLight.direction", 10.0f, 10.0f, -10.0f);  // ovo dodao aaaaaaaaaaaaaaaaaaaaaaa
+
         ourShader.setVec3("pointLight.position", pointLight.position);
         ourShader.setVec3("pointLight.ambient", pointLight.ambient);
         ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
@@ -332,6 +339,13 @@ int main() {
         ourModel.Draw(ourShader); */
         // draw skybox as last
         glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+
+
+        //Face culling
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+
+
         skyboxShader.use();
         view = glm::mat4(glm::mat3(programState->camera.GetViewMatrix())); // remove translation from the view matrix
         skyboxShader.setMat4("view", view);
